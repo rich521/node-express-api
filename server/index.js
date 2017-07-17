@@ -1,14 +1,16 @@
 // Express server and mongoose application
-// Require modules
+// Require node-modules
 const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const appRouter = require('./router');
 const app = express();
 
 // Application
 app.use(morgan('combined')); // log debugger
 app.use(bodyParser.json({ type: '*/*' })); // always parse response to json
+appRouter(app);
 
 // Server
 const port = process.env.PORT || 4030;
