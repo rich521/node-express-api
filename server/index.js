@@ -11,7 +11,7 @@ const app = express();
 
 // DB setup
 const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost:auth/auth';
-mongoose.createConnection(dbUrl);
+mongoose.connect(dbUrl);
 
 // Application
 app.use(morgan('combined')); // log debugger
