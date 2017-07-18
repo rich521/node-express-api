@@ -2,8 +2,7 @@
 node express api server test
 
 **Server Features**
- - Bycrypt password
- - Authenitcation
+ - Authenitcation (Bycrypt, Jwt, Passport)
  - Express Restful service
  - MongoDB & Mongoose
 
