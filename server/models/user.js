@@ -8,7 +8,7 @@ const userSchema = new Schema({
 });
 
 // Model Class
-const ModelClass = mongoose.model('user', userSchema);
+const UserClass = mongoose.model('user', userSchema);
 
 // Export model
-module.exports = ModelClass; 
+module.exports = UserClass; 

@@ -4,8 +4,13 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const appRouter = require('./router');
 const app = express();
+
+// DB setup
+const dbUrl = process.env.MONGODB_URI || 'mongodb://localhost:auth/auth';
+mongoose.createConnection(dbUrl);
 
 // Application
 app.use(morgan('combined')); // log debugger
