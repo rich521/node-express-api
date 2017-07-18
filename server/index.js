@@ -5,7 +5,8 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const appRouter = require('./router');
+const cors = require('cors');
+const router = require('./router');
 const app = express();
 
 // DB setup
@@ -14,8 +15,10 @@ mongoose.createConnection(dbUrl);
 
 // Application
 app.use(morgan('combined')); // log debugger
+app.use(cors());
 app.use(bodyParser.json({ type: '*/*' })); // always parse response to json
-appRouter(app);
+// To router
+router(app);
 
 // Server
 const port = process.env.PORT || 4030;
