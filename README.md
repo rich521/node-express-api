@@ -5,6 +5,7 @@ Server Features
  - Bycrypt password
  - Authenitcation
  - Express Restful service
+ - MongoDB & Mongoose
 
 Instructions:
 1. git clone project
@@ -15,3 +16,7 @@ Instructions:
 Requirements for server:
 1. Mongodb (Database server)
 2. Terminal (localhost express server)
+3. Postman or Advanced Rest Client or Any restful client to set simple HTTP actions
+
+(Not required but recommended)
+- Download Robo 3T
