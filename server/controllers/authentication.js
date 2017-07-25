@@ -6,10 +6,13 @@ const date = new Date();
 
 function tokenForUser(user) {
   const timestamp = date.getTime();
-
-  // subject & issued at time
   return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
 }
+
+exports.signin = (req, res, next) => {
+  // give token after success login
+  res.send({ success: 200, signin: 'true', token: tokenForUser(req.user) });
+};
 
 exports.signup = (req, res, next) => {
   const reqBody = req.body;
@@ -36,7 +39,7 @@ exports.signup = (req, res, next) => {
     user.save((err) => {
       if (err) return next(err);
 
-      res.json({ success: 'true', token: tokenForUser(user)  });
+      res.json({ success: 200, signup: 'true', token: tokenForUser(user)  });
     });
   });
 };

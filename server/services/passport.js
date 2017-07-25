@@ -11,11 +11,18 @@ const localOptions = { usernameField: 'email' };
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
   // verification
   User.findOne({ email }, (err, user) => {
-    if (err) return done();
+    if (err) return done(err, false);
 
     if (!user) return done(null, false);
 
     // compare passwords hash vs input password
+    user.comparePassword(password, (err, isMatch) => {
+      if (err) return done(err, false);
+
+      if (!isMatch) return done(null, false);
+
+      return done(null, user);
+    });
   });
 });
 
@@ -31,13 +38,12 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
   User.findById(payload.sub, (err, user) => {
     if (err) return done(err, false); // error
 
-    if (user) {
-      done(null, user); // found user
-    } else {
-      done(null, false); // did not find user
-    }
+    if (user) return done(null, user); // found user
+
+    return done(null, false); // did not find user
   });
 });
 
 // Passport to use JWT
 passport.use(jwtLogin);
+passport.use(localLogin);
