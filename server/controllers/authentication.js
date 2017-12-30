@@ -23,15 +23,23 @@ exports.signup = (req, res, next) => {
   };
 
   if (!userCreds.email || !userCreds.password) {
-    res.status(422).send({ error: 'Email and Password required' });
+    res.statusMessage = 'Email required';
+    res.status(422).end();
+  }
+
+  if (!userCreds.password) {
+    res.statusMessage = 'Password required';
+    res.status(422).end();
   }
 
   User.findOne({ email: userCreds.email }, (err, doesUserExist) => {
     if (err) return next(err);
 
     // If exist, return error
-    if (doesUserExist)
-      return res.status(422).send({ error: 'Email exists already' });
+    if (doesUserExist) {
+      res.statusMessage = 'Email exists already';
+      return res.status(422).end();
+    }
 
     // If does not exist: create and save user record
     const user = new User(userCreds);
